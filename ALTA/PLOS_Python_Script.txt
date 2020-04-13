@@ -1,0 +1,75 @@
+PEDESTRIAN LOS
+
+Evaluation
+
+PLOS(!Total_Numb!, !PostedSpeed!,!Sidewalk!, !MUP!,!Bike_Lane!,!Buff_Bike_Lane!)
+
+Pre-logic Script Code
+
+def PLOS(lanes,spd,sw,mup,bl,bbl):
+  if spd <= 30:
+    if lanes <= 2:
+      if sw == 2 or mup == 2 or (sw == 1 and mup == 1):
+        y = 1
+      elif sw == 1 or mup == 1 or bbl == 1:
+        y = 2
+      else:
+        y = 3
+    else:
+      if sw == 2 or mup == 2 or (sw == 1 and mup == 1):
+        y = 1
+      elif (sw == 1 or mup == 1) and (bl == 1 or bbl == 1):
+        y = 2
+      elif (sw == 1 or mup == 1) or bbl == 1:
+        y = 3
+      else:
+        y = 4
+  if spd == 35:
+    if lanes <= 2:
+      if (sw == 2 or mup == 2 or (sw == 1 and mup == 1)) and (bl == 1 or bbl == 1):
+        y = 1
+      elif (sw == 2 or mup == 2 or (sw == 1 and mup == 1)) or ((sw == 1 or mup == 1) and (bl == 1 or bbl == 1)): 
+        y = 2
+      elif (sw == 1 or mup == 1) or bbl == 1:
+        y = 3
+      elif bl == 1:
+        y = 4
+      else:
+        y = 5
+    else:
+      if (sw == 2 or mup == 2 or (sw == 1 and mup == 1)) and (bl == 1 or bbl == 1): 
+        y = 1
+      elif (sw == 2 or mup == 2) or (sw == 1 and mup == 1) or ((sw == 1 or mup == 1) and (bl == 1 or bbl == 1)):
+        y = 3 
+      elif (sw == 1 or mup == 1) or bbl == 1:
+        y = 4   
+      elif bl == 1:
+        y = 5
+      else:
+        y = 6
+  if spd >= 40:
+    if lanes <= 2:
+      if (sw == 2 or mup == 2 or (sw == 1 and mup == 1)) and (bl == 1 or bbl == 1):
+        y = 2
+      elif sw == 2 or mup == 2 or (sw == 1 and mup == 1 and (bl == 1 or bbl == 1)): 
+        y = 3
+      elif sw == 1 or mup == 1:
+        y = 4
+      elif bbl == 1:
+        y = 5
+      elif bl == 1:
+        y = 6
+      else:
+        y = 7
+    else:
+      if (sw == 2 or mup == 2 or (sw == 1 and mup == 1)) and (bl == 1 or bbl == 1):
+        y = 3
+      elif sw == 2 or mup == 2 or (sw == 1 and mup == 1 and (bl == 1 or bbl == 1)): 
+        y = 4
+      elif sw == 1 or mup == 1:  
+        y = 5
+      elif bbl == 1 or bl == 1:
+        y = 6
+      else:
+        y = 7        
+  return y
